@@ -10,7 +10,7 @@ CREATE TABLE `order_items` (
   `qty` int(11) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `search`;
 
@@ -21,7 +21,7 @@ CREATE TABLE `search` (
   `num_results` int(11) DEFAULT NULL COMMENT 'Total Number of Results',
   `php_session_id` varchar(250) DEFAULT NULL COMMENT 'PHP Session ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `search_click`;
 
@@ -32,7 +32,7 @@ CREATE TABLE `search_click` (
   `product_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `search_id` (`search_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `search_flat`;
 
@@ -46,7 +46,7 @@ CREATE TABLE `search_flat` (
   `date_added` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `phrase` (`phrase`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 3) Setup cron.php to run daily
 

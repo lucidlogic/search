@@ -9,9 +9,6 @@ final class Report
     private $_db;
     public  $statement;
 
-    /**
-     * Constructor Method
-     */
     public function __construct()
     {
         $this->_db = new Database();

@@ -22,6 +22,7 @@ $Report = new Report();
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">All</a></li>
+                <li><a href="cron.php">Run Index</a></li>
                 <li><a href="export.php">Export</a></li>
             </ul>
         </div>
@@ -31,7 +32,7 @@ $Report = new Report();
     <div class='clear'/>
   <?php
   //Report 1
-  $reportDate = '2014-05-18';
+  $reportDate = date('Y-m-d');
   $Report->popNoClicks($reportDate);
   ?>
   <h2 class="sub-header">Popular search phrases with no clicks (all data until  <?php echo $reportDate?>)</h2>
