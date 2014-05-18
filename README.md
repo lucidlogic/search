@@ -12,11 +12,6 @@ CREATE TABLE `order_items` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-
-
-# Dump of table search
-# ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `search`;
 
 CREATE TABLE `search` (
@@ -28,11 +23,6 @@ CREATE TABLE `search` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-
-
-# Dump of table search_click
-# ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `search_click`;
 
 CREATE TABLE `search_click` (
@@ -43,11 +33,6 @@ CREATE TABLE `search_click` (
   PRIMARY KEY (`id`),
   KEY `search_id` (`search_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
-
-# Dump of table search_flat
-# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `search_flat`;
 
@@ -64,4 +49,6 @@ CREATE TABLE `search_flat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 3) Setup cron.php to run daily
+
+
 4) Run Reports from index.php in your browser

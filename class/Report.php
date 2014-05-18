@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Class Report
+ * Class Report handles storage and display of reports data from a flat table
+ *
  */
 final class Report
 {
     private $_db;
-
-    public $statement;
+    public  $statement;
 
     /**
      * Constructor Method
@@ -18,7 +18,7 @@ final class Report
     }
 
     /**
-     *
+     * Index into flat table
      */
     public function runCron()
     {
@@ -47,22 +47,26 @@ final class Report
      */
     public function popNoClicks($reportDate = false)
     {
-        $dateSql = '';
+        $dateSql = " WHERE date_added =  ";
         if($reportDate ){
-            $dateSql = " WHERE date_added = '". $reportDate."'";
+            $dateSql .= " '". $reportDate."'";
+        } else {
+            $dateSql .= " '". date('Y-m-d')."'";
         }
         $sql = "SELECT
                     phrase,
                     num_clicks as total_clicks,
+                    num_searches,
                     date_added
                 FROM search_flat
                 $dateSql
-                GROUP BY phrase HAVING total_clicks = 0 ";
+                GROUP BY phrase HAVING total_clicks = 0
+                ORDER BY num_searches DESC";
         return $this->fetchResults($sql);
     }
 
     /**
-     * search phrases with high clicks and low revenue per search
+     * Search phrases with high clicks and low revenue per search
      *
      * @param bool $reportDate
      *
@@ -73,6 +77,8 @@ final class Report
         $dateSql = " WHERE date_added =  ";
         if($reportDate ){
             $dateSql .= " '". $reportDate."'";
+        } else {
+            $dateSql .= " '". date('Y-m-d')."'";
         }
         $sql = "SELECT
                     phrase,
@@ -83,11 +89,11 @@ final class Report
                 FROM search_flat
                 $dateSql
                 GROUP BY phrase  ORDER BY clicks_per_search_revenue DESC";
-        echo $sql;
         return $this->fetchResults($sql);
     }
 
     /**
+     * Fetch data using PDO object
      * @param $sql
      *
      * @return array
@@ -98,5 +104,32 @@ final class Report
         $this->statement->execute();
 
         return $this->statement;
+    }
+
+    /**
+     * Build csv export for both reports
+     * @return string
+     */
+    public function exportCsv()
+    {
+        $csv = 'Phrase,Number of Searches,Clicks,Date' . PHP_EOL;
+        $this->popNoClicks();
+        while($row = $this->statement->fetch()){
+            $csv .= $row['phrase'].',';
+            $csv .= $row['num_searches'].',';
+            $csv .= $row['total_clicks'].',';
+            $csv .= $row['date_added'];
+            $csv .= PHP_EOL;
+        }
+        $csv .= 'Phrase,Revenue per Search,Clicks,Date' . PHP_EOL;
+        $this->highClicksLowRev();
+        while($row = $this->statement->fetch()){
+            $csv .= $row['phrase'].',';
+            $csv .= $row['revenue_per_search'].',';
+            $csv .= $row['num_clicks'].',';
+            $csv .= $row['date_added'];
+            $csv .= PHP_EOL;
+        }
+        return $csv;
     }
 }

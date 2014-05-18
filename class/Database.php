@@ -18,7 +18,7 @@ final class Database
     public function __construct()
     {
         try {
-            $this->_conn = new PDO("mysql:unix_socket=/Applications/MNPP/tmp/mysql/mysql.sock;charset=utf8mb4;dbname=$this->_dbname", $this->_dbuser, $this->_dbpass);
+            $this->_conn = new PDO("mysql:host=$this->_dbhost;charset=utf8mb4;dbname=$this->_dbname", $this->_dbuser, $this->_dbpass);
             $this->_conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch(PDOException $e) {
             echo 'ERROR: ' . $e->getMessage();
