@@ -48,7 +48,8 @@ CREATE TABLE `search_flat` (
   KEY `phrase` (`phrase`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-3) Setup cron.php to run daily
+3) Import Sample data from sample_data/search_sample.sql
 
+4) Setup cron.php to run daily
 
-4) Run Reports from index.php in your browser
+5) Run Reports from index.php in your browser
